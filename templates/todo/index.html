@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Todo List</h1>
+
+  {% for task in task_list %}
+    <div>
+      <p><strong>{{ task.content }}</strong></p>
+      <p>Created: {{ task.created_at }}</p>
+      <p>Deadline: {{ task.deadline }}</p>
+      <p>Status: {{ task.is_done }}</p>
+
+      <p>Tags:
+        {% for tag in task.tags.all %}
+          {{ tag.name }}
+        {% empty %}
+          No tags
+        {% endfor %}
+      </p>
+    </div>
+    <hr>
+  {% empty %}
+    <p>No tasks yet.</p>
+  {% endfor %}
+{% endblock %}
