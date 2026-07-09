@@ -1,12 +1,12 @@
-from django.shortcuts import render
+from django.views import generic
+from todo.models import Task, Tag
 
-from todo.models import Task
+
+class TaskListView(generic.ListView):
+    model = Task
+    template_name = "todo/index.html"
 
 
-def index(request):
-    tasks = Task.objects.all().order_by("is_done", "-created_at")
-    context = {
-        "title": "welcome",
-        "task_list": tasks
-    }
-    return render(request, "todo/index.html", context=context)
+class TagListView(generic.ListView):
+    model = Tag
+    template_name = "todo/tag_list.html"

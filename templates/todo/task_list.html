@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Task List</h1>
+
+  <table>
+    <tr>
+      <th>Content</th>
+      <th>Created at</th>
+      <th>Deadline</th>
+      <th>Is done</th>
+      <th>Tags</th>
+    </tr>
+
+    {% for task in task_list %}
+      <tr>
+        <td>{{ task.content }}</td>
+        <td>{{ task.created_at }}</td>
+        <td>{{ task.deadline }}</td>
+        <td>{{ task.is_done }}</td>
+        <td>
+          {% for tag in task.tags.all %}
+            {{ tag.name }}
+          {% empty %}
+            No tags
+          {% endfor %}
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td>No taska yet.</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
