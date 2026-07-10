@@ -1,25 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Todo List</h1>
+  <h1>
+    Task List
+    <a href="{% url 'task-create' %}">Create</a>
+  </h1>
 
-  {% for task in task_list %}
-    <div>
-      <p><strong>{{ task.content }}</strong></p>
-      <p>Created: {{ task.created_at }}</p>
-      <p>Deadline: {{ task.deadline }}</p>
-      <p>Status: {{ task.is_done }}</p>
+  <table>
+    <tr>
+      <th>Content</th>
+      <th>Created at</th>
+      <th>Deadline</th>
+      <th>Is done</th>
+      <th>Tags</th>
+      <th>Update</th>
+      <th>Delete</th>
+    </tr>
 
-      <p>Tags:
-        {% for tag in task.tags.all %}
-          {{ tag.name }}
-        {% empty %}
-          No tags
-        {% endfor %}
-      </p>
-    </div>
-    <hr>
-  {% empty %}
-    <p>No tasks yet.</p>
-  {% endfor %}
+    {% for task in task_list %}
+      <tr>
+        <td>{{ task.content }}</td>
+        <td>{{ task.created_at }}</td>
+        <td>{{ task.deadline }}</td>
+        <td>{{ task.is_done }}</td>
+        <td>
+          {% for tag in task.tags.all %}
+            {{ tag.name }}
+          {% empty %}
+            No tags
+          {% endfor %}
+        </td>
+        <td><a href="{% url 'task-update' pk=task.pk %}">Update</a></td>
+        <td><a href="{% url 'task-delete' pk=task.pk %}">Delete</a></td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="7">No tasks yet.</td>
+      </tr>
+    {% endfor %}
+  </table>
 {% endblock %}
