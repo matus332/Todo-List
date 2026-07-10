@@ -3,10 +3,10 @@
 {% block content %}
   <h1>
     Task List
-    <a href="{% url 'task-create' %}">Create</a>
+    <a href="{% url 'task-create' %}" class="btn btn-primary">Create</a>
   </h1>
 
-  <table>
+  <table class="table table-bordered">
     <tr>
       <th>Content</th>
       <th>Created at</th>
@@ -31,18 +31,18 @@
             No tags
           {% endfor %}
         </td>
-        <td><a href="{% url 'task-update' pk=task.pk %}">Update</a></td>
-        <td><a href="{% url 'task-delete' pk=task.pk %}">Delete</a></td>
+        <td><a href="{% url 'task-update' pk=task.pk %}" class="btn btn-warning btn-sm">Update</a></td>
+        <td><a href="{% url 'task-delete' pk=task.pk %}" class="btn btn-danger btn-sm">Delete</a></td>
         <td>
           {% if task.is_done %}
             <form action="{% url 'toggle-status' pk=task.pk %}" method="post" novalidate>
               {% csrf_token %}
-              <button type="submit">Undo</button>
+              <button type="submit" class="btn btn-secondary btn-sm">Undo</button>
             </form>
           {% else %}
             <form action="{% url 'toggle-status' pk=task.pk %}" method="post" novalidate>
               {% csrf_token %}
-              <button type="submit">Complete</button>
+              <button type="submit" class="btn btn-success btn-sm">Complete</button>
             </form>
           {% endif %}
         </td>
