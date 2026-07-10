@@ -1,5 +1,9 @@
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
+
+
 from todo.models import Task, Tag
 
 
@@ -45,3 +49,10 @@ class TagUpdateView(generic.UpdateView):
 class TagDeleteView(generic.DeleteView):
     model = Tag
     success_url = reverse_lazy("tag-list")
+
+
+def toggle_status(request, pk):
+    if request.method == "POST":
+        item = get_object_or_404(Task, pk=pk)
+        item.toggle_active()
+    return redirect("home-page")

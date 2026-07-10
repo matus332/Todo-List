@@ -16,3 +16,7 @@ class Task(models.Model):
 
     def __str__(self):
         return self.content
+
+    def toggle_active(self):
+        self.is_done = not self.is_done
+        self.save()

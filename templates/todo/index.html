@@ -15,6 +15,7 @@
       <th>Tags</th>
       <th>Update</th>
       <th>Delete</th>
+      <th>Status action</th>
     </tr>
 
     {% for task in task_list %}
@@ -32,6 +33,19 @@
         </td>
         <td><a href="{% url 'task-update' pk=task.pk %}">Update</a></td>
         <td><a href="{% url 'task-delete' pk=task.pk %}">Delete</a></td>
+        <td>
+          {% if task.is_done %}
+            <form action="{% url 'toggle-status' pk=task.pk %}" method="post" novalidate>
+              {% csrf_token %}
+              <button type="submit">Undo</button>
+            </form>
+          {% else %}
+            <form action="{% url 'toggle-status' pk=task.pk %}" method="post" novalidate>
+              {% csrf_token %}
+              <button type="submit">Complete</button>
+            </form>
+          {% endif %}
+        </td>
       </tr>
     {% empty %}
       <tr>
