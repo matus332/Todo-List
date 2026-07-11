@@ -1,0 +1,36 @@
+body {
+    background-color: #f5f5f5;
+    color: #333333;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+.container {
+    gap: 24px;
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+  width: 200px;
+  padding: 20px;
+  background-color: #e9ecef;
+  border-radius: 8px;
+  min-height: auto;
+  align-self: flex-start;
+}
+
+.content {
+    width: 100%;
+    padding: 20px;
+}
+
+th, td {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #f0f0f0;
+}

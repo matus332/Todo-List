@@ -1,3 +1,58 @@
-from django.shortcuts import render
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse_lazy
+from django.views import generic
 
-# Create your views here.
+
+from todo.models import Task, Tag
+
+
+class TaskListView(generic.ListView):
+    model = Task
+    template_name = "todo/index.html"
+
+
+class TaskCreateView(generic.CreateView):
+    model = Task
+    fields = "__all__"
+    success_url = reverse_lazy("home-page")
+
+
+class TaskUpdateView(generic.UpdateView):
+    model = Task
+    fields = "__all__"
+    success_url = reverse_lazy("home-page")
+
+
+class TaskDeleteView(generic.DeleteView):
+    model = Task
+    success_url = reverse_lazy("home-page")
+
+
+class TagListView(generic.ListView):
+    model = Tag
+    template_name = "todo/tag_list.html"
+
+
+class TagCreateView(generic.CreateView):
+    model = Tag
+    fields = "__all__"
+    success_url = reverse_lazy("tag-list")
+
+
+class TagUpdateView(generic.UpdateView):
+    model = Tag
+    fields = "__all__"
+    success_url = reverse_lazy("tag-list")
+
+
+class TagDeleteView(generic.DeleteView):
+    model = Tag
+    success_url = reverse_lazy("tag-list")
+
+
+def toggle_status(request, pk):
+    if request.method == "POST":
+        item = get_object_or_404(Task, pk=pk)
+        item.toggle_active()
+    return redirect("home-page")
