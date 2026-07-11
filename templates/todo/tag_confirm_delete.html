@@ -6,7 +6,7 @@
     <form action="" method="post" novalidate>
         {% csrf_token %}
         <p>Do you really want to delete?</p>
-        <button type="submit">Yes</button>
+        <button type="submit" class="btn btn-danger">Yes</button>
         <a href="{% url 'tag-list' %}">Cancel</a>
     </form>
 {% endblock %}
